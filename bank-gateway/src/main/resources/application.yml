@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: bank-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: bank-target-route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/bank/**
+          filters:
+            - StripPrefix=1
+            # Alternative:
+            # - RewritePath=/bank/(?<remaining>.*), /${remaining}
